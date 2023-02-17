@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
+
 /**
  * main - program assigning random no to var n
- * Result: 0 (Sucess)
+ * Return: 0 (Sucess)
  */
 
 int main(void)
