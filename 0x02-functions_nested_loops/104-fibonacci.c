@@ -7,23 +7,17 @@
   */
 int main(void)
 {
-	int i = 0;
-	unsigned long long j = 1, k = 2;
+	int i;
+	unsigned long j = 1, k = 2, next;
 
-	while (i < 98)
+	printf("%lu, %lu", j, k);
+
+	for (i = 2; i < 98; i++)
 	{
-		if (i == 0)
-			printf("%llu", j);
-		else if (i == 1)
-			printf(", %llu", k);
-		else
-		{
-			k += j;
-			j = k - j;
-			printf(", %llu", k);
-		}
-
-		++i;
+		next = j + k;
+		j = k;
+		k = next;
+		printf(", %lu", next);
 	}
 
 	printf("\n");
