@@ -1,13 +1,15 @@
 #include <stdio.h>
 
 /**
-  * main - Prints the first 98 fibonacci numbers
-  *
-  * Return: Nothing!
-  */
+ * main - Prints the first 98 fibonacci numbers
+ *
+ * Return: Nothing!
+ */
 int main(void)
 {
 	int i;
+
+
 	unsigned long j = 1, k = 2, next;
 
 	printf("%lu, %lu", j, k);
