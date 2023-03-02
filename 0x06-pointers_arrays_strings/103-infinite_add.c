@@ -1,52 +1,33 @@
 #include "main.h"
+#include <string.h>
 
-/**
- * infinite_add - add 2 numbers together
- * @n1: text representation of 1st number to add
- * @n2: text representation of 2nd number to add
- * @r: pointer to buffer
- * @size_r: buffer size
- * Return: pointer to calling function
- */
-
-char *infinite_add(char *n1, char *n2, char *r, int size_r)
-{
-	int overflow = 0, i = 0, j = 0, digits = 0;
-	int val1 = 0, val2 = 0, temp_tot = 0;
-
-	while (*(n1 + i) != '\0')
-		i++;
-	while (*(n2 + j) != '\0')
-		j++;
-	i--;
-	j--;
-	if (j >= size_r || i >= size_r)
-		return (0);
-	while (j >= 0 || i >= 0 || overflow == 1)
-	{
-		if (i < 0)
-			val1 = 0;
-		else
-			val1 = *(n1 + i) - '0';
-		if (j < 0)
-			val2 = 0;
-		else
-			val2 = *(n2 + j) - '0';
-		temp_tot = val1 + val2 + overflow;
-		if (temp_tot >= 10)
-			overflow = 1;
-		else
-			overflow = 0;
-		if (digits >= (size_r - 1))
-			return (0);
-		*(r + digits) = (temp_tot % 10) + '0';
-		digits++;
-		j--;
-		i--;
-	}
-	if (digits == size_r)
-		return (0);
-	*(r + digits) = '\0';
-	rev_string(r);
-	return (r);
+char* infinite_add(char* n1, char* n2, char* r, int size_r) {
+    int len1 = strlen(n1), len2 = strlen(n2);
+    int carry = 0, sum = 0, max_len = len1 > len2 ? len1 : len2;
+    
+    if (max_len + 1 > size_r) return 0; // check if result fits in r
+    
+    r[max_len + 1] = '\0'; // add terminating null character
+    for (int i = 1; i <= max_len; i++) {
+        int digit1 = (i <= len1) ? n1[len1 - i] - '0' : 0;
+        int digit2 = (i <= len2) ? n2[len2 - i] - '0' : 0;
+        sum = digit1 + digit2 + carry;
+        carry = sum / 10;
+        r[max_len + 1 - i] = (sum % 10) + '0';
+    }
+    if (carry == 0) {
+        // no more carry, remove leading zero
+        memmove(r, r + 1, max_len + 1);
+        return r;
+    }
+    else if (max_len + 2 > size_r) {
+        // carry overflows r, cannot store result
+        return 0;
+    }
+    else {
+        // add carry as leading digit
+        r[0] = carry + '0';
+        return r;
+    }
 }
+
