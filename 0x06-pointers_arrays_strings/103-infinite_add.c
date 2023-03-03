@@ -1,33 +1,80 @@
 #include "main.h"
 #include <string.h>
 
-char* infinite_add(char* n1, char* n2, char* r, int size_r) {
-    int len1 = strlen(n1), len2 = strlen(n2);
-    int carry = 0, sum = 0, max_len = len1 > len2 ? len1 : len2;
-    
-    if (max_len + 1 > size_r) return 0; // check if result fits in r
-    
-    r[max_len + 1] = '\0'; // add terminating null character
-    for (int i = 1; i <= max_len; i++) {
-        int digit1 = (i <= len1) ? n1[len1 - i] - '0' : 0;
-        int digit2 = (i <= len2) ? n2[len2 - i] - '0' : 0;
-        sum = digit1 + digit2 + carry;
-        carry = sum / 10;
-        r[max_len + 1 - i] = (sum % 10) + '0';
-    }
-    if (carry == 0) {
-        // no more carry, remove leading zero
-        memmove(r, r + 1, max_len + 1);
-        return r;
-    }
-    else if (max_len + 2 > size_r) {
-        // carry overflows r, cannot store result
-        return 0;
-    }
-    else {
-        // add carry as leading digit
-        r[0] = carry + '0';
-        return r;
-    }
-}
+char *add_strings(char *n1, char *n2, char *r, int r_index);
+char *infinite_add(char* n1, char* n2, char* r, int size_r);
 
+/**
+ * add_strings - Adds the numbers stored in two strings.
+ * @n1: The string containing the first number to be added.
+ * @n2: The string containing the second number to be added.
+ * @r: The buffer to store the result.
+ * @r_index: The current index of the buffer.
+ *
+ * Return: If r can store the sum - a pointer to the result.
+ *         If r cannot store the sum - 0
+ */
+char *add_strings(char *n1, char *n2, char *r, int r_index)
+{
+	int num, tens = 0;
+
+	for (; *n1 && *n2; n1--, n2--, r_index--)
+	{
+		num = (*n1 - '0') + (*n2 - '0');
+		num += tens;
+		*(r + r_index) = (num % 10) + '0';
+		tens = num / 10;
+	}
+
+	for (; *n1; n1--, r_index--)
+	{
+		num = (*n1 - '0') + tens;
+		*(r + r_index) = (num % 10) + '0';
+		tens = num / 10;
+	}
+
+	for (; *n2; n2--, r_index--)
+	{
+		num = (*n2 - '0') + tens;
+		*(r + r_index) = (num % 10) + '0';
+		tens = num / 10;
+	}
+
+	if (tens && r_index >= 0)
+	{
+		*(r + r_index) = (tens % 10) + '0';
+		return (r + r_index);
+	}
+
+	else if (tens && r_index < 0)
+		return (r + r_index + 1);
+}
+/**
+ * infinite_add - Adds two numbers.
+ * @n1: The first number to be added.
+ * @n2: The second number to be addede.
+ * @r: The buffer to store the result.
+ * @size_r: The buffer size.
+ *
+ * Return: If r can store the sum - a pointer to the result.
+ * 	   If r cannot store the sum - 0.
+ */
+char *infinite_add(char *n1, char *n2, char *r, int size_r)
+{
+	int index, n1_len = 0, n2_len = 0;
+
+	for (index = 0; *(n1 + index); index++)
+		n1_len++;
+
+	for (index = 0; *(n2 + index); index++)
+		n2_len++;
+
+	if (size_r <= n1_len + 1 || size_r <= n2_len + 1)
+		return (0);
+
+	n1 += n1_len - 1;
+	n2 += n2_len - 1;
+	*(r + size_r) = '\0';
+
+	return (add_strings(n1, n2, r, --size_r));
+}
