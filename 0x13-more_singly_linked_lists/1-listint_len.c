@@ -10,16 +10,19 @@
 
 size_t listint_len(const listint_t *h)
 {
+	// Initialize a counter for the number of nodes in the list
 	int count = 0;
 
+	// Check if the head of the list is not NULL
 	if (h != 0)
 	{
+		// Traverse the list and increment the counter for each node visited
 		while (h)
 		{
-			h = h->next;
-			count++;
+			h = h->next; // Move to the next node
+			count++; // Increment the counter for each node visited
 		}
 	}
 
-	return (count);
+	return (count); // Return the total number of nodes in the list
 }
