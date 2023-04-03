@@ -10,22 +10,22 @@
 
 size_t print_listint(const listint_t *h)
 {
-	// Initialize a counter for the number of nodes in the list
+	/* Initialize a counter for the number of nodes in the list */
 	int count = 0;
 
-	// Check if the head of the list is not NULL
+	/* Check if the head of the list is not NULL */
 	if (h != NULL)
 	{
-	
-	// Traverse the list and print each node's value
+
+	/* Traverse the list and print each node's value */
 		while (h)
 		{
 			printf("%d\n", h->n);
 			h = h->next;
-			count++; // Increment the counter for each node visited
+			count++; /* Increment the counter for each node visited */
 		}
 	}
 
-	// Return the total number of nodes in the list
+	/* Return the total number of nodes in the list */
 	return (count);
 }
