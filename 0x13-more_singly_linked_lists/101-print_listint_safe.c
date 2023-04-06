@@ -14,30 +14,28 @@ size_t print_listint_safe(const listint_t *head)
 	const listint_t *slow, *fast;
 	size_t count = 0;
 
-	slow = head;
-	fast = head;
+	if (head == NULL)
+		exit(98);
+
+	fast = slow = head;
 
 	while (slow && fast && fast->next)
 	{
-		printf("[%p] %d\n", (void *)slow, slow->n);
-		count++;
 		slow = slow->next;
 		fast = fast->next->next;
 
 		if (slow == fast)
 		{
 			printf("-> [%p] %d\n", (void *)slow, slow->n);
-			printf("-> Loop detected, exiting...\n");
 			exit(98);
 		}
-	}
-
-	while (slow)
-	{
+		
 		printf("[%p] %d\n", (void *)slow, slow->n);
 		count++;
-		slow = slow->next;
 	}
+
+	printf("[%p] %d\n", (void *)slow, slow->n);
+	count++;
 
 	return (count);
 }
