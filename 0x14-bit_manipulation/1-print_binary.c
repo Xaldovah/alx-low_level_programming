@@ -14,21 +14,21 @@ void print_binary(unsigned long int n)
 		return;
 	}
 
-	_divide(n);
+	_print_binary(n);
 }
 /**
- * _divide - Finds number
+ * _print_binary - Finds number
  * @n: The number
  *
  * Return: void
  */
 
-void _divide(unsigned long int n)
+void _print_binary(unsigned long int n)
 {
 	if (n < 1)
 		return;
 
-	_divide(n >> 1);
+	_print_binary(n >> 1);
 
 	if (n & 1)
 		_putchar('1');
