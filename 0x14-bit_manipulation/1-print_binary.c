@@ -8,14 +8,30 @@
  */
 void print_binary(unsigned long int n)
 {
-	unsigned long int mask = 1;
-	int len = sizeof(unsigned long int) * 8;
-
-	while (len--)
+	if (n == 0)
 	{
-		if ((mask << len) & n)
-			_putchar('1');
-		else
-			_putchar('0');
+		_putchar('0');
+		return;
 	}
+
+	_divide(n);
+}
+/**
+ * _divide - Finds number
+ * @n: The number
+ *
+ * Return: void
+ */
+
+void _divide(unsigned long int n)
+{
+	if (n < 1)
+		return;
+
+	_divide(n >> 1);
+	
+	if (n & 1)
+		_putchar('1');
+	else
+		_putchar('0');
 }
