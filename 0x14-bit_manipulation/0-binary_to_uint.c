@@ -11,17 +11,17 @@
 
 unsigned int binary_to_uint(const char *b)
 {
-	unsigned int len, total = 0, sum = 0;
+	unsigned int length, total = 0, sum = 0;
 
-	if (b == 0)
+	if (b == NULL)
 		return (0);
 
-	len = _strlen(b);
-	for (unsigned int i = 0; i < len; i++)
+	length = _strlen(b);
+	while (length--)
 	{
-		if (b[i] != 48 && b[i] != 49)
+		if (b[length] != 48 && b[length] != 49)
 			return (0);
-		if (b[i] == 49)
+		if (b[length] == 49)
 			sum += 1 << total;
 
 		total++;
