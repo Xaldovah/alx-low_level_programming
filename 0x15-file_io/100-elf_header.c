@@ -134,12 +134,11 @@ void print_osabi(unsigned char *e_ident)
 }
 
 /**
- * main - ...
- * @argc: ...
- * @argv: ...
- *
- * Return: ...
- */
+main - This program displays the information contained in the ELF header.
+@argc: The number of command-line arguments.
+@argv: An array of pointers to the arguments.
+Return: 0 if successful, 98 if any errors occur.
+*/
 int main(int argc, char *argv[])
 {
 	int fd;
@@ -148,25 +147,21 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		print_error("Usage: elf_header elf_filename");
-	fd = open(argv[1], O_RDONLY);
 
+	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		print_error("Error: Cannot open file");
 	if (read(fd, &header, sizeof(header)) != sizeof(header))
 		print_error("Error: Cannot read file");
-
-	printf("File path: %s\n", argv[1]); /* Add file path output */
-	printf("\n"); /* Add empty line */
 	e_ident = header.e_ident;
 	print_magic(e_ident);
 	print_class(e_ident);
 	print_data(e_ident);
 	print_version(e_ident);
 	print_osabi(e_ident);
-	printf("\n"); /* Add empty line */
-	system("readelf -S --wide -W --file-header --special-programs --hex-dump=.notes --string-dump=.comment --debug-dump=decodedline,info,frames,abbrev,macro,types,locs --debug-dump=info --debug-dump=frames --debug-dump=abbrev --debug-dump=macro --debug-dump=types --debug-dump=locs ");
+
 	if (close(fd) == -1)
 		print_error("Error: Cannot close file");
 
-	return (0);
+	return (EXIT_SUCCESS);
 }
