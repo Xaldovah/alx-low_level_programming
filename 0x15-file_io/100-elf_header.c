@@ -134,11 +134,11 @@ void print_osabi(unsigned char *e_ident)
 }
 
 /**
-main - This program displays the information contained in the ELF header.
-@argc: The number of command-line arguments.
-@argv: An array of pointers to the arguments.
-Return: 0 if successful, 98 if any errors occur.
-*/
+ * main - This program displays the information contained in the ELF header.
+ * @argc: The number of command-line arguments.
+ * @argv: An array of pointers to the arguments.
+ * Return: 0 if successful, 98 if any errors occur.
+ */
 int main(int argc, char *argv[])
 {
 	int fd;
@@ -149,10 +149,12 @@ int main(int argc, char *argv[])
 		print_error("Usage: elf_header elf_filename");
 
 	fd = open(argv[1], O_RDONLY);
+
 	if (fd == -1)
 		print_error("Error: Cannot open file");
 	if (read(fd, &header, sizeof(header)) != sizeof(header))
 		print_error("Error: Cannot read file");
+
 	e_ident = header.e_ident;
 	print_magic(e_ident);
 	print_class(e_ident);
@@ -163,5 +165,5 @@ int main(int argc, char *argv[])
 	if (close(fd) == -1)
 		print_error("Error: Cannot close file");
 
-	return (EXIT_SUCCESS);
+	return (0);
 }
