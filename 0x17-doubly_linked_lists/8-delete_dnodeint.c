@@ -20,7 +20,6 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 
 		if (index == 0)
 			return (delete_first_dnode(head));
-
 		current = get_dnodeint_at_index(*head, index);
 		if (current)
 		{
@@ -32,12 +31,10 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 				current->prev->next = current->next;
 				current->next->prev = current->prev;
 			}
-
 			free(temp);
 			return (1);
 		}
 	}
-
 	return (-1);
 }
 
@@ -76,15 +73,15 @@ int delete_first_dnode(dlistint_t **head)
  */
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
 {
-        dlistint_t *curr;
-        unsigned int i;
+	dlistint_t *curr;
+	unsigned int i;
 
-        curr = head;
-        for (i = 0; i < index && curr != NULL; i++)
-        {
-                curr = curr->next;
-        }
-        return (curr);
+	curr = head;
+	for (i = 0; i < index && curr != NULL; i++)
+	{
+		curr = curr->next;
+	}
+	return (curr);
 }
 
 /**
@@ -95,12 +92,12 @@ dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
  */
 size_t dlistint_len(const dlistint_t *h)
 {
-        size_t i = 0;
+	size_t i = 0;
 
-        while (h != NULL)
-        {
-                i++;
-                h = h->next;
-        }
-        return (i);
+	while (h != NULL)
+	{
+		i++;
+		h = h->next;
+	}
+	return (i);
 }
