@@ -68,47 +68,39 @@ int delete_first_dnode(dlistint_t **head)
 }
 
 /**
-  * get_dnodeint_at_index - ...
-  * @head: ...
-  * @index: ...
-  *
-  * Return: The specific node of the doubly linked list
-  */
+ * get_dnodeint_at_index - ...
+ * @head: ...
+ * @index: ...
+ *
+ * Return: The nth node of a dlistint_t linked list.
+ */
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
 {
-	dlistint_t *current = head;
-	unsigned int iter_times = 0;
+        dlistint_t *curr;
+        unsigned int i;
 
-	if (head)
-	{
-		while (current != NULL)
-		{
-			if (iter_times == index)
-				return (current);
-
-			current = current->next;
-			++iter_times;
-		}
-	}
-
-	return (NULL);
+        curr = head;
+        for (i = 0; i < index && curr != NULL; i++)
+        {
+                curr = curr->next;
+        }
+        return (curr);
 }
 
 /**
-  * dlistint_len - ...
-  * @h: ...
-  *
-  * Return: Number of elements in the doubly linked list
-  */
+ * dlistint_len - ...
+ * @h: ...
+ *
+ * Return: The number of elements.
+ */
 size_t dlistint_len(const dlistint_t *h)
 {
-	int lenght = 0;
+        size_t i = 0;
 
-	while (h != NULL)
-	{
-		++lenght;
-		h = h->next;
-	}
-
-	return (lenght);
+        while (h != NULL)
+        {
+                i++;
+                h = h->next;
+        }
+        return (i);
 }
