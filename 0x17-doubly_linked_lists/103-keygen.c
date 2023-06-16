@@ -10,7 +10,7 @@
  */
 char *generate_key(void)
 {
-	char possible_chars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	char possible_chars[] = "abcdefghijklmnopqrstuvwxyz0123456789";
 	char *key = malloc(9 * sizeof(char));
 	int i;
 
