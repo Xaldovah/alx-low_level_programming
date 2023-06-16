@@ -1,50 +1,41 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
 /**
- * generate_key - Generates a key for the given username
- * @username: The username
+ * main - ...
  *
- * Return: The generated key
+ * Return: 0.
  */
-char *generate_key(const char *username)
+int main(void)
 {
-	size_t len = strlen(username);
-	char *key = malloc((len + 5) * sizeof(char));
+	char a[10], c[10];
+	int i, j, k = 0;
 
-	if (key == NULL)
+	printf("#Keygen by b44nz0r\n\n");
+
+	while (k < 5 || k >= 10)
 	{
-		fprintf(stderr, "Memory allocation failed\n");
-		exit(1);
+		if (k != 0)
+			printf("\nThe username length should be 5 to 10 alphabets\n");
+		printf("enter username: ");
+		scanf("%s", a);
+		k = strlen(a);
 	}
-	strcpy(key, username);
-	strcat(key, "_key");
+	i = k - 1;
+	j = 0;
 
-	return (key);
-}
-
-/**
- * main - Entry point of the program
- * @argc: Number of command-line arguments
- * @argv: Array of command-line arguments
- *
- * Return: 0 if successful, 1 if it failed
- */
-int main(int argc, char *argv[])
-{
-	char *username = argv[1];
-	char *key = generate_key(username);
-
-	if (argc != 2)
+	while (i >= 0)
 	{
-		printf("Usage: %s <username>\n", argv[0]);
-		return (1);
+		c[j] = a[i] + i;
+		i--;
+		j++;
 	}
-	printf("The key for the user %s is %s\n", username, key);
-
-	free(key);
+	c[j] = 0;
+	printf("\nThe password is %s\n", c);
+	printf("\nHit Enter to Exit\n");
+	getchar();
+	getchar();
 
 	return (0);
 }
