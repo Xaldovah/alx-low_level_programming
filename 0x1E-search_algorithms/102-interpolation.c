@@ -10,3 +10,32 @@
  */
 int interpolation_search(int *array, size_t size, int value)
 {
+	int low = 0, mid, high = size - 1;
+
+	while ((arr[high] != arr[low]) && (key >= arr[low]) && (
+				key <= arr[high])) {
+		mid = low + ((key - arr[low]) * (high - low) / (
+					arr[high] - arr[low]));
+		if (arr[mid] < key)
+		{
+			low = mid + 1;
+		}
+		else if (key < arr[mid])
+		{
+			high = mid - 1;
+		}
+		else
+		{
+			return (mid);
+		}
+	}
+
+	if (key == arr[low])
+	{
+		return (low);
+	}
+	else
+	{
+		return (-1);
+	}
+}
