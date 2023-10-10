@@ -21,7 +21,7 @@ int exponential_search(int *array, size_t size, int value)
 	{
 		pointer *= 2;
 	}
-	return (binary_search(array, value, pointer/2, min(pointer + 1, size)))
+	return (binary_search(array, value, pointer / 2, min(pointer + 1, size)));
 }
 
 
