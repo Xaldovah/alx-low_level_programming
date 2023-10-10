@@ -10,48 +10,27 @@
  */
 int exponential_search(int *array, size_t size, int value)
 {
-	int pointer;
+	int bound = 1;
+	int left, right, mid;
 
-	if (size == 0)
-	{
+	if (array == NULL || size == 0)
 		return (-1);
-	}
-	pointer = 1;
-	while (pointer < size && array[pointer] < value)
+	while (bound < (int)size && array[bound] < value)
 	{
-		pointer *= 2;
+		printf("Value checked array[%d] = [%d]\n", bound, array[bound]);
+		bound *= 2;
 	}
-	return (binary_search(array, value, pointer / 2, min(pointer + 1, size)));
-}
-
-
-/**
- * binary_search - Search for a value in a sorted array using binary search
- * @array: Pointer to the first element of the sorted array
- * @size: Number of elements in the array
- * @value: The value to search for
- *
- * Return: Index where `value` is located, -1 if not found or `array` is NULL.
- */
-int binary_search(int *array, size_t size, int value)
-{
-	int i, left = 0, mid, right = (int)size - 1;
-
-	if (array == NULL)
-	{
-		return (-1);
-	}
+	left = bound / 2;
+	right = bound < (int)size ? bound : (int)size - 1;
+	printf("Value found between indexes [%d] and [%d]\n", left, right);
 
 	while (left <= right)
 	{
-		mid = left + (right - left) / 2;
 		printf("Searching in array: ");
-
-		for (i = left; i <= right; i++)
+		for (mid = left; mid <= right; mid++)
 		{
-			printf("%d", array[i]);
-
-			if (i < right)
+			printf("%d", array[mid]);
+			if (mid < right)
 			{
 				printf(", ");
 			}
@@ -60,18 +39,14 @@ int binary_search(int *array, size_t size, int value)
 				printf("\n");
 			}
 		}
+		mid = left + (right - left) / 2;
+
 		if (array[mid] == value)
-		{
 			return (mid);
-		}
 		else if (array[mid] < value)
-		{
 			left = mid + 1;
-		}
 		else
-		{
 			right = mid - 1;
-		}
 	}
 	return (-1);
 }
